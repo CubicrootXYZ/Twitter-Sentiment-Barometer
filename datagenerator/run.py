@@ -34,7 +34,7 @@ class Datagenerator():
         tweets_categorized = pos["id"].to_list()+neu["id"].to_list()+neg["id"].to_list()
 
         tweets = self.getTweets()
-        tweets = [{"id": id, "text": text} for id, text in tweets.items() if id not in tweets_categorized]
+        tweets = [{"id": id, "text": text} for id, text in tweets.items() if id not in tweets_categorized and text[0:3] != "RT "]
         tweets_pos = {"id": [], "Sentiment": [], "Tweet": []}
         tweets_neu = {"id": [], "Sentiment": [], "Tweet": []}
         tweets_neg = {"id": [], "Sentiment": [], "Tweet": []}
