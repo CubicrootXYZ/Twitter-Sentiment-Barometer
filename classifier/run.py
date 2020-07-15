@@ -32,6 +32,7 @@ class Classifier:
         return feat_pos[0:pos_th]+feat_neg[0:neg_th], feat_pos[pos_th:]+feat_neg[neg_th:]
 
     def predict(self, text):
+        print("PREDICT: ", text)
         probdist = self.classifier.prob_classify(self.extract_features(text.split()))
         pred_sentiment = probdist.max()
         print("Predicted sentiment: ", pred_sentiment)
@@ -43,7 +44,20 @@ class Classifier:
         for item in self.classifier.most_informative_features()[:10]:
             print(item[0])
 
+    def save(self, filename):
+        import pickle
+        f = open(filename, 'wb')
+        pickle.dump(self.classifier, f)
+        f.close()
+
+    def load(self, filename):
+        import pickle
+        f = open(filename, 'rb')
+        self.classifier = pickle.load(f)
+        f.close()
+
 
 cl = Classifier(0.8)
 cl.mostImportant()
-cl.predict("Ihr seid scheiße, niemals wähle ich euch")
+cl.predict("IIch liebe euch")
+cl.save("test.pickle")

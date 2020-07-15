@@ -4,3 +4,4 @@ settings.ini
 tweets_neu.csv
 tweets_neg.csv
 tweets_pos.csv
+classifier/test.pickle
