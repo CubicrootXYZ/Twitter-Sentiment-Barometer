@@ -1,6 +1,7 @@
 import configparser, pandas, os, msvcrt, csv
 from orator import DatabaseManager
 from termcolor import colored
+import re
 
 os.chdir("C://github_repos/Twitter-Sentiment-Barometer/datagenerator")
 
@@ -34,7 +35,7 @@ class Datagenerator():
         tweets_categorized = pos["id"].to_list()+neu["id"].to_list()+neg["id"].to_list()
 
         tweets = self.getTweets()
-        tweets = [{"id": id, "text": text} for id, text in tweets.items() if id not in tweets_categorized and text[0:3] != "RT "]
+        tweets = [{"id": id, "text": re.sub('<[^<]+?>', '', text)} for id, text in tweets.items() if id not in tweets_categorized and text[0:3] != "RT "]
         tweets_pos = {"id": [], "Sentiment": [], "Tweet": []}
         tweets_neu = {"id": [], "Sentiment": [], "Tweet": []}
         tweets_neg = {"id": [], "Sentiment": [], "Tweet": []}
@@ -88,7 +89,7 @@ class Datagenerator():
         }
 
         self.db = DatabaseManager(config)
-        tweets = self.db.table(self.config['database']['table']).lists(self.config['database']['textfield'], self.config['database']['idfield'])
+        tweets = self.db.table(self.config['database']['table']).where(self.config['database']['retweetfield'], '=', '0').lists(self.config['database']['textfield'], self.config['database']['idfield'])
         return tweets
 
 
