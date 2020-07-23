@@ -9,8 +9,8 @@ class Datagenerator():
     def __init__(self):
         # read config file
         required_fields = {"database": ["host", "database", "user", "password", "idfield", "textfield"]}
-        self.config = config = configparser.ConfigParser()
-        config.read('../settings.ini')
+        self.config = configparser.ConfigParser()
+        config.read('../settings_private.ini')
 
         for key, values in required_fields.items():
             for value in values:
