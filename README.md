@@ -11,6 +11,10 @@ A tool to collect tweets from a database and then sort them into positiv, neutra
 
 ! The command line input via `msvcrt.getch` might only work on Windows machines. !
 
-## Calssifier
+## Classifier
 
-A Naive Bayes Text Classifier. 
+A Naive Bayes Text Classifier.
+
+## Database-Layout/Settings
+
+To be able to read tweets from a database you'll need a compatible database with orator. The database needs a retweetid column that defaults to 0 if it is no retweet, a tweetid column and a tweet column. HTML, breaklines and apostrophs are deleted automatically.
